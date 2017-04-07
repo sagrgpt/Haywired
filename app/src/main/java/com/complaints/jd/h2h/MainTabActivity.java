@@ -15,7 +15,7 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainTabActivity extends AppCompatActivity implements CropProductionFragment.OnFragmentInteractionListener,UserAccFragment.OnFragmentInteractionListener, Bidding.OnFragmentInteractionListener{
+public class MainTabActivity extends AppCompatActivity implements UserAccFragment.OnFragmentInteractionListener, Bidding.OnFragmentInteractionListener{
     ViewPager viewPager;
     TabLayout tabLayout;
 
