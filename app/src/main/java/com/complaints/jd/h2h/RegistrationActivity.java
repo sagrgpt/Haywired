@@ -16,8 +16,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -28,14 +38,16 @@ public class RegistrationActivity extends AppCompatActivity {
     private static final int GALLERY_IMAGE_REQUEST = 1;
     private static final int CAMERA_IMAGE_REQUEST = 1;
     public static final String FILE_NAME = "temp.jpg";
-
+    private EditText pass;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         setTitle("Registration");
+        startActivity(new Intent(getApplicationContext(),MainTabActivity.class));
         identityImageView = (ImageView) findViewById(R.id.identityImageView);
         tinNo = (EditText) findViewById(R.id.tinNo);
+        pass = (EditText) findViewById(R.id.pass);
         myImageViewText =(TextView) findViewById(R.id.myImageViewText);
         identityImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,12 +155,40 @@ public class RegistrationActivity extends AppCompatActivity {
 
     public void onProceed(View view) {
         //TODO validate user input
-        String TinNo = tinNo.getText().toString();
+        final String TinNo = tinNo.getText().toString();
+        final String Pass=pass.getText().toString();
         if(TinNo.isEmpty()){
             Toast.makeText(getApplicationContext(),"Tin No is a must!",Toast.LENGTH_SHORT).show();
         }
         else{
-            //TODO upload TIN to database
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://kmzenon.pe.hu/app/companyreg.php", new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                }
+            }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("company","company");
+                    params.put("tin",TinNo);
+                    params.put("owner","owner");
+                    params.put("location","loc");
+                    params.put("username","username");
+                    params.put("password",Pass);
+                    params.put("tinimage","tinimage");
+                    params.put("approve","approve");
+                    return params;
+                }
+            };
+            RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+            requestQueue.add(stringRequest);
+            Toast.makeText(getApplicationContext(),TinNo,Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"User to be verified",Toast.LENGTH_SHORT).show();
         }
     }
 }
