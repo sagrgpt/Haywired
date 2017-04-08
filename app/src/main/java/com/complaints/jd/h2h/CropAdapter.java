@@ -6,6 +6,7 @@ package com.complaints.jd.h2h;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.service.voice.VoiceInteractionSession;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.PopupMenu;
@@ -52,7 +53,11 @@ public class CropAdapter extends RecyclerView.Adapter<CropAdapter.MyViewHolder> 
                 @Override
                 public void onClick(View view) {
                     Context context=view.getContext();
-                    context.startActivity(new Intent(context,MakeBiddingActivity.class));
+                    Intent intent=new Intent(context,MakeBiddingActivity.class);
+                    intent.putExtra("msp",msp.getText().toString());
+                    intent.putExtra("quan",count.getText().toString());
+                    context.startActivity(intent);
+
                 }
             });
         }

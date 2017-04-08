@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -32,7 +34,13 @@ public class MakeBiddingActivity extends AppCompatActivity implements SwipeRefre
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_bidding);
-
+        String st=getIntent().getExtras().getString("msp");
+        String quan1=getIntent().getExtras().getString("quan");
+        TextView msp=(TextView)findViewById(R.id.msp);
+        TextView quan=(TextView)findViewById(R.id.production);
+        msp.setText(st);
+        quan.setText(quan1);
+        //Toast.makeText(getApplicationContext(),st,Toast.LENGTH_SHORT).show();
         //Initiating recycler view
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycleViewContainer);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -48,6 +56,7 @@ public class MakeBiddingActivity extends AppCompatActivity implements SwipeRefre
     @Override
     public void onRefresh() {
       data.clear();
+        getData(getApplicationContext());
         arrayList.clear();
         arrayList1.clear();
     }

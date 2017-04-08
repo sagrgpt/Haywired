@@ -52,7 +52,7 @@ public class MainTabActivity extends AppCompatActivity implements  Bidding.OnFra
         }
         else {
             viewPagerAdapter.addFragment(new CropProductionFragment(comid), "Crop Production");
-            viewPagerAdapter.addFragment(new Bidding(),"My Bidding");
+            //viewPagerAdapter.addFragment(new Bidding(),"My Bidding");
             viewPagerAdapter.addFragment(new UserAccFragment(comid), "User Account");
         }
 
