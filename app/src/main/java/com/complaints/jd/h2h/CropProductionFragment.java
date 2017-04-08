@@ -1,10 +1,7 @@
 package com.complaints.jd.h2h;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -13,6 +10,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,27 +89,26 @@ public class CropProductionFragment extends Fragment implements SwipeRefreshLayo
         String pr = "";
         String image = "";
         String rat = "";
-        String id="";
+        String id = "";
         // Toast.makeText(mycontext,response,Toast.LENGTH_SHORT).show();
         try {
             JSONArray contacts = new JSONArray(response);
-            for (int j=0;j<contacts.length();j++)
-            {
+            for (int j = 0; j < contacts.length(); j++) {
                 JSONObject c = contacts.getJSONObject(j);
                 pro = c.getString("district");
                 arrayList.add(pro);
                 bar = c.getString("msp");
                 arrayList1.add(bar);
-                image=c.getString("crop");
+                image = c.getString("crop");
                 arrayList2.add(image);
-                pr=c.getString("quantity");
+                pr = c.getString("quantity");
                 arrayList3.add(pr);
 
             }
             prepare();
         } catch (JSONException e) {
             e.printStackTrace();
-        }
+            }
     }
     /**
      * Initializing collapsing toolbar
