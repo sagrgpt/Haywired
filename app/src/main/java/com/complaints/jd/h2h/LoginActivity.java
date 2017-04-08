@@ -1,6 +1,9 @@
 package com.complaints.jd.h2h;
+<<<<<<< Updated upstream
 
 import android.content.Context;
+=======
+>>>>>>> Stashed changes
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -20,7 +23,7 @@ import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
     EditText username,password;
-    Button button , button1;
+    Button button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,19 +32,12 @@ public class LoginActivity extends AppCompatActivity {
         username=(EditText)findViewById(R.id.username);
         password=(EditText)findViewById(R.id.password);
         button=(Button)findViewById(R.id.login);
-        button1=(Button)findViewById(R.id.Register);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String user=username.getText().toString();
                 String pass=password.getText().toString();
                 validate(user,pass);
-            }
-        });
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),RegistrationActivity.class));
             }
         });
     }
@@ -99,5 +95,9 @@ public class LoginActivity extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         requestQueue.add(stringRequest);
+    }
+
+    public void onRegister(View view) {
+        startActivity(new Intent(LoginActivity.this,RegistrationActivity.class));
     }
 }

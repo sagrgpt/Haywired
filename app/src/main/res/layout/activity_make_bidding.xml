@@ -17,14 +17,81 @@
         android:src="@drawable/ic_create_white_24px"
         android:layout_alignParentEnd="true" />
 
-    <ImageView
-        android:padding="20dp"
-        android:src="@drawable/plant"
-        android:id="@+id/cropimage"
-        android:layout_width="140dp"
-        android:layout_height="160dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:clickable="true"
-        android:scaleType="fitXY" />
+    <RelativeLayout
+        android:id="@+id/headerContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/centerMargin"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_centerHorizontal="true"/>
+
+        <ImageView
+            android:padding="20dp"
+            android:src="@drawable/plant"
+            android:id="@+id/cropimage"
+            android:layout_width="140dp"
+            android:layout_height="160dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cropName"
+            android:hint="Wheat"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:layout_toEndOf="@+id/centerMargin"/>
+
+        <TextView
+            android:id="@+id/productionLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/centerMargin"
+            android:text="Production: "
+            android:layout_below="@+id/cropName"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/production"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/productionLabel"
+            android:text="500 Qty"
+            android:layout_below="@+id/cropName"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/mspLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/centerMargin"
+            android:layout_below="@id/productionLabel"
+            android:text="MSP: Rs. "
+            android:layout_marginTop="10dp"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textColor="@color/colorAccent"/>
+
+        <TextView
+            android:id="@+id/msp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5000"
+            android:layout_toEndOf="@+id/mspLabel"
+            android:layout_below="@id/productionLabel"
+            android:layout_marginTop="10dp"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textColor="@color/colorAccent"/>
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycleViewContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/headerContainer"
+        android:scrollbars="vertical"/>
 
 </RelativeLayout>

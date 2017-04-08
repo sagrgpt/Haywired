@@ -1,9 +1,9 @@
 package com.complaints.jd.h2h;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -21,7 +21,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,7 +31,7 @@ public class RegistrationActivity extends AppCompatActivity {
     EditText tinNo,pass;
     private TextView myImageViewText;
     private static final String TAG="custom_tag";
-    private static final int GALLERY_IMAGE_REQUEST = 1;
+    private static final int GALLERY_IMAGE_REQUEST = 3;
     private static final int CAMERA_IMAGE_REQUEST = 1;
     public static final String FILE_NAME = "temp.jpg";
     String TinNo ;
@@ -42,7 +41,6 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         setTitle("Registration");
-        startActivity(new Intent(getApplicationContext(),MainTabActivity.class));
         identityImageView = (ImageView) findViewById(R.id.identityImageView);
         tinNo = (EditText) findViewById(R.id.tinNo);
         pass = (EditText) findViewById(R.id.pass1);
@@ -76,7 +74,8 @@ public class RegistrationActivity extends AppCompatActivity {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);;
-        startActivityForResult(Intent.createChooser(intent, "Select a photo"), GALLERY_IMAGE_REQUEST);
+        startActivityForResult(Intent.createChooser(intent, "Select a photo"),
+                GALLERY_IMAGE_REQUEST);
     }
 
     public void startCamera(){
@@ -92,10 +91,10 @@ public class RegistrationActivity extends AppCompatActivity {
 //        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 //        startActivityForResult(intent, CAMERA_IMAGE_REQUEST);
     }
-    public File getCameraFile() {
-        File dir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        return new File(dir, FILE_NAME);
-    }
+//    public File getCameraFile() {
+//        File dir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+//        return new File(dir, FILE_NAME);
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
