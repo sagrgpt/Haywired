@@ -34,6 +34,7 @@ public class MakeBiddingActivity extends AppCompatActivity implements SwipeRefre
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_bidding);
+        setTitle("Center Information");
         String st=getIntent().getExtras().getString("msp");
         String quan1=getIntent().getExtras().getString("quan");
         TextView msp=(TextView)findViewById(R.id.msp);
