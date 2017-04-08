@@ -1,5 +1,4 @@
 package com.complaints.jd.h2h;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -15,7 +14,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -23,7 +21,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -48,7 +45,7 @@ public class RegistrationActivity extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(),MainTabActivity.class));
         identityImageView = (ImageView) findViewById(R.id.identityImageView);
         tinNo = (EditText) findViewById(R.id.tinNo);
-        pass = (EditText) findViewById(R.id.pass);
+        pass = (EditText) findViewById(R.id.pass1);
         myImageViewText =(TextView) findViewById(R.id.myImageViewText);
         pass=(EditText)findViewById(R.id.pass1);
         identityImageView.setOnClickListener(new View.OnClickListener() {
