@@ -1,6 +1,8 @@
 package com.complaints.jd.h2h;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -49,9 +51,14 @@ public class LoginActivity extends AppCompatActivity {
     public void onGuest(View view) {
         Intent intent=new Intent(LoginActivity.this,MainTabActivity.class);
         intent.putExtra("guest","guest");
+        SharedPreferences sharedPreferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("COMID",null);
+        editor.putBoolean("ISGUEST",true);
+        editor.apply();
         startActivity(intent);
     }
-    String mypass;String checkpass;
+    String mypass;String checkpass,comid;
     public void validate(String user , String pass)
     {
         mypass=pass;
@@ -63,12 +70,22 @@ public class LoginActivity extends AppCompatActivity {
                     JSONArray result = jsonObject.getJSONArray("result");
                     JSONObject crop_json = result.getJSONObject(0);
                     checkpass=crop_json.getString("password");
+                    comid=crop_json.getString("comid");
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                if(mypass.equals(checkpass))
-                    startActivity(new Intent(getApplicationContext(),MainTabActivity.class));
+                if(mypass.equals(checkpass)) {
+                    Intent intent1 = new Intent(getApplicationContext(), MainTabActivity.class);
+                    SharedPreferences sharedPreferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("COMID",comid);
+                    editor.putBoolean("ISGUEST",false);
+                    editor.apply();
+//                    intent1.putExtra("comid",comid);
+//                    intent1.putExtra("guest","");
+                    startActivity(intent1);
+                }
                 else
                     Toast.makeText(getApplicationContext(),"Wrong Password",Toast.LENGTH_SHORT).show();
             }

@@ -13,9 +13,11 @@
     android:layout_margin="5dp"
     android:elevation="3dp"
     card:cardCornerRadius="5dp">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <ImageView
             android:id="@+id/cropimage"
             android:layout_width="140dp"
@@ -31,8 +33,8 @@
             android:layout_toRightOf="@id/cropimage"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:text="Crop:"
             android:paddingTop="10dp"
+            android:text="Crop:"
             android:textSize="15dp" />
 
         <TextView
@@ -41,25 +43,36 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/croptype"
             android:layout_toRightOf="@+id/cropimage"
-            android:paddingTop="3dp"
-            android:text="Quantity:"
             android:paddingBottom="5dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
+            android:paddingTop="3dp"
+            android:text="Quantity:"
             android:textSize="15dp" />
+
         <TextView
             android:id="@+id/center1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/croptype"
+            android:layout_marginTop="25dp"
             android:layout_toRightOf="@+id/cropimage"
-            android:paddingTop="3dp"
             android:paddingBottom="5dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:text="Center:"  
-            android:layout_marginTop="25dp"/>
+            android:paddingTop="3dp"
+            android:text="Center:" />
 
+        <TextView
+            android:id="@+id/centerid"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="3dp"
+            android:layout_below="@+id/center1"
+            android:layout_toEndOf="@+id/cropimage" />
     </RelativeLayout>
 </android.support.v7.widget.CardView>
 </RelativeLayout>

@@ -8,14 +8,22 @@ public class Crop {
     public String product ,imgurl,barcode;
 
     public String price,id;
-    public Crop(String product,String barcode,String imgurl,String price)
+    public Crop(String product,String barcode,String imgurl,String price,String id)
     {
         this.product=product;
         this.price=price;
         this.barcode=barcode;
         this.imgurl=imgurl;
+        this.id=id;
     }
-
+    public String getId()
+    {
+        return id;
+    }
+    public  void setId()
+    {
+       this.id=id;
+    }
     public String  getproduct()
     {
         return product;

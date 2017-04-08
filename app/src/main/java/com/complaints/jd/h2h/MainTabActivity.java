@@ -1,6 +1,8 @@
 package com.complaints.jd.h2h;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -12,14 +14,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainTabActivity extends AppCompatActivity implements UserAccFragment.OnFragmentInteractionListener, Bidding.OnFragmentInteractionListener{
+public class MainTabActivity extends AppCompatActivity implements  Bidding.OnFragmentInteractionListener{
     ViewPager viewPager;
     TabLayout tabLayout;
-    String value="";
+    Boolean value;
+    String comid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,12 +31,11 @@ public class MainTabActivity extends AppCompatActivity implements UserAccFragmen
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Crop Production Viewer");
         setSupportActionBar(toolbar);
-        try {
-            value=getIntent().getExtras().getString("guest");
-        }
-        catch (Exception e){
-
-        }
+        SharedPreferences sharedPreferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        comid = sharedPreferences.getString("COMID",null);
+        value = sharedPreferences.getBoolean("ISGUEST",false);
+       // Toast.makeText(getApplicationContext(),comid,Toast.LENGTH_SHORT).show();
+       // Toast.makeText(getApplicationContext(),value.toString(),Toast.LENGTH_SHORT).show();
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
@@ -42,14 +45,15 @@ public class MainTabActivity extends AppCompatActivity implements UserAccFragmen
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        if(value.equals("guest")) {
-            viewPagerAdapter.addFragment(new CropProductionFragment(), "Crop Production");
-            viewPagerAdapter.addFragment(new UserAccFragment(), "User Account");
+        if(value) {
+
+            viewPagerAdapter.addFragment(new CropProductionFragment(comid), "Crop Production");
+            viewPagerAdapter.addFragment(new UserAccFragment(comid), "User Account");
         }
         else {
-            viewPagerAdapter.addFragment(new CropProductionFragment(), "Crop Production");
+            viewPagerAdapter.addFragment(new CropProductionFragment(comid), "Crop Production");
             viewPagerAdapter.addFragment(new Bidding(),"My Bidding");
-            viewPagerAdapter.addFragment(new UserAccFragment(), "User Account");
+            viewPagerAdapter.addFragment(new UserAccFragment(comid), "User Account");
         }
 
         viewPager.setAdapter(viewPagerAdapter);

@@ -35,7 +35,7 @@ public class CropAdapter extends RecyclerView.Adapter<CropAdapter.MyViewHolder> 
     private Context mContext;
     private List<Crop> albumList;
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, count,item;
+        public TextView title, count,item,centerkiitem;
         public ImageView thumbnail, overflow;
 
         public MyViewHolder(View view) {
@@ -44,6 +44,7 @@ public class CropAdapter extends RecyclerView.Adapter<CropAdapter.MyViewHolder> 
             count = (TextView) view.findViewById(R.id.quantity);
             thumbnail = (ImageView) view.findViewById(R.id.cropimage);
             item=(TextView)view.findViewById(R.id.center1);
+            centerkiitem=(TextView)view.findViewById(R.id.centerid);
         }
     }
     String user_email;
@@ -65,10 +66,13 @@ public class CropAdapter extends RecyclerView.Adapter<CropAdapter.MyViewHolder> 
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         album = albumList.get(position);
 
-        holder.title.setText(album.getproduct());
-        holder.count.setText(album.getPrice());
+        holder.title.setText("District:"+"       "+album.getproduct());
+        holder.count.setText("Quantity:"+"       "+album.getPrice());
         Glide.with(mContext).load("http://kmzenon.pe.hu/app/wheat.jpg").into(holder.thumbnail);
-        holder.item.setText("");
+        holder.item.setText("MSP:"+"       "+"₹"+album.getBarcode());
+
+        holder.centerkiitem.setText(album.getId());
+        holder.centerkiitem.setVisibility(View.INVISIBLE);
 
         //holder.item.setVisibility(View.INVISIBLE);
 

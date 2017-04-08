@@ -1,6 +1,7 @@
 package com.complaints.jd.h2h;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -10,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -29,12 +31,13 @@ public class CropProductionFragment extends Fragment implements SwipeRefreshLayo
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+        private static String COMID;
     RecyclerView recyclerView;
     SwipeRefreshLayout swipeRefreshLayout;
     List<Crop> cropList=new ArrayList<>();
-
-    public CropProductionFragment() {
-        // Required empty public constructor
+String company;
+    public CropProductionFragment(String companyid) {
+        company=companyid;
     }
     public Context mycontext;
     @Override
@@ -42,6 +45,7 @@ public class CropProductionFragment extends Fragment implements SwipeRefreshLayo
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mycontext = container.getContext();
+        Toast.makeText(mycontext,company,Toast.LENGTH_SHORT).show();
         return inflater.inflate(R.layout.fragment_crop_production, container, false);
     }
 
@@ -58,7 +62,8 @@ public class CropProductionFragment extends Fragment implements SwipeRefreshLayo
     ArrayList<String> arrayList1 = new ArrayList<>();
     ArrayList<String> arrayList2 = new ArrayList<>();
     ArrayList<String> arrayList3 = new ArrayList<>();
-    String center,quantity,croptype,msp;
+    ArrayList<String> arrayList4 = new ArrayList<>();
+    String center,quantity,croptype,msp,centerid;
     public void getData()
     {
         //loading = ProgressDialog.show(mycontext,"Please wait...","Fetching...",false,false);
@@ -101,8 +106,11 @@ public class CropProductionFragment extends Fragment implements SwipeRefreshLayo
                 arrayList1.add(bar);
                 image = c.getString("crop");
                 arrayList2.add(image);
-                pr = c.getString("quantity");
+                pr = c.getString("sum(crop.quantity)");
                 arrayList3.add(pr);
+                centerid=c.getString("cid");
+                arrayList4.add(centerid);
+
 
             }
             prepare();
@@ -126,7 +134,8 @@ public class CropProductionFragment extends Fragment implements SwipeRefreshLayo
             String bar = arrayList1.get(i);
             String imgsrc = arrayList2.get(i);
             String price = arrayList3.get(i);
-            Crop a = new Crop(product, bar,"http://kmzenon.pe.hu/app/wheat.jpg",price);
+            String id= arrayList4.get(i);
+            Crop a = new Crop(product, bar,"http://kmzenon.pe.hu/app/wheat.jpg",price,id);
             cropList.add(a);
 
         }
