@@ -5,7 +5,9 @@ package com.complaints.jd.h2h;
  */
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.service.voice.VoiceInteractionSession;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -37,7 +39,7 @@ public class CropAdapter extends RecyclerView.Adapter<CropAdapter.MyViewHolder> 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title, count,item,centerkiitem;
         public ImageView thumbnail, overflow;
-
+        CardView cardView;
         public MyViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.croptype);
@@ -45,6 +47,14 @@ public class CropAdapter extends RecyclerView.Adapter<CropAdapter.MyViewHolder> 
             thumbnail = (ImageView) view.findViewById(R.id.cropimage);
             item=(TextView)view.findViewById(R.id.center1);
             centerkiitem=(TextView)view.findViewById(R.id.centerid);
+            cardView=(CardView)view.findViewById(R.id.card);
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Context context=view.getContext();
+                    context.startActivity(new Intent(context,MakeBiddingActivity.class));
+                }
+            });
         }
     }
     String user_email;
@@ -75,6 +85,7 @@ public class CropAdapter extends RecyclerView.Adapter<CropAdapter.MyViewHolder> 
         holder.centerkiitem.setVisibility(View.INVISIBLE);
 
         //holder.item.setVisibility(View.INVISIBLE);
+
 
     }
 

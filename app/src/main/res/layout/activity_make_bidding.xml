@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/rel"
     tools:context="com.complaints.jd.h2h.MakeBiddingActivity">
 
     <android.support.design.widget.FloatingActionButton
@@ -86,12 +87,21 @@
             android:textColor="@color/colorAccent"/>
 
     </RelativeLayout>
-
+<View
+    android:id="@+id/seperatorView"
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:layout_below="@+id/headerContainer"
+    android:background="#000000"/>
+<android.support.v4.widget.SwipeRefreshLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/swipe"
+    android:layout_below="@+id/seperatorView">
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycleViewContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/headerContainer"
         android:scrollbars="vertical"/>
-
+</android.support.v4.widget.SwipeRefreshLayout>
 </RelativeLayout>

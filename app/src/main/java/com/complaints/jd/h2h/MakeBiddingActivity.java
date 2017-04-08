@@ -37,9 +37,9 @@ public class MakeBiddingActivity extends AppCompatActivity implements SwipeRefre
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycleViewContainer);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         getData(getApplicationContext());
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe);
+       swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe);
         mAdapter = new CenterBiddingAdapter(data);
-        swipeRefreshLayout.setOnRefreshListener(this);
+       swipeRefreshLayout.setOnRefreshListener(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(mAdapter);
 
@@ -47,7 +47,7 @@ public class MakeBiddingActivity extends AppCompatActivity implements SwipeRefre
 
     @Override
     public void onRefresh() {
-        data.clear();
+      data.clear();
         arrayList.clear();
         arrayList1.clear();
     }
