@@ -32,13 +32,14 @@ import java.util.Map;
 public class RegistrationActivity extends AppCompatActivity {
 
     private ImageView identityImageView;
-    private EditText tinNo;
+    EditText tinNo,pass;
     private TextView myImageViewText;
     private static final String TAG="custom_tag";
     private static final int GALLERY_IMAGE_REQUEST = 1;
     private static final int CAMERA_IMAGE_REQUEST = 1;
     public static final String FILE_NAME = "temp.jpg";
-    private EditText pass;
+    String TinNo ;
+    String password ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +50,7 @@ public class RegistrationActivity extends AppCompatActivity {
         tinNo = (EditText) findViewById(R.id.tinNo);
         pass = (EditText) findViewById(R.id.pass);
         myImageViewText =(TextView) findViewById(R.id.myImageViewText);
+        pass=(EditText)findViewById(R.id.pass1);
         identityImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -154,20 +156,22 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     public void onProceed(View view) {
-        //TODO validate user input
-        final String TinNo = tinNo.getText().toString();
-        final String Pass=pass.getText().toString();
+        TinNo=tinNo.getText().toString();
+        password=pass.getText().toString();
         if(TinNo.isEmpty()){
             Toast.makeText(getApplicationContext(),"Tin No is a must!",Toast.LENGTH_SHORT).show();
         }
+
         else{
             StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://kmzenon.pe.hu/app/companyreg.php", new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
+                    //  Toast.makeText(mContext, response, Toast.LENGTH_SHORT).show();
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
+                    //   Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
                 }
             }) {
                 @Override
@@ -177,9 +181,9 @@ public class RegistrationActivity extends AppCompatActivity {
                     params.put("company","company");
                     params.put("tin",TinNo);
                     params.put("owner","owner");
-                    params.put("location","loc");
+                    params.put("location","location");
                     params.put("username","username");
-                    params.put("password",Pass);
+                    params.put("password",password);
                     params.put("tinimage","tinimage");
                     params.put("approve","approve");
                     return params;
@@ -187,8 +191,8 @@ public class RegistrationActivity extends AppCompatActivity {
             };
             RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
             requestQueue.add(stringRequest);
-            Toast.makeText(getApplicationContext(),TinNo,Toast.LENGTH_SHORT).show();
-            Toast.makeText(getApplicationContext(),"User to be verified",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"User Registered",Toast.LENGTH_SHORT).show();
+            //startActivity(new Intent(getApplicationContext(),MainTabActivity.class));
         }
     }
 }

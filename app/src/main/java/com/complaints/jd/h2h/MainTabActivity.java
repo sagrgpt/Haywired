@@ -1,5 +1,6 @@
 package com.complaints.jd.h2h;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -18,7 +19,7 @@ import java.util.List;
 public class MainTabActivity extends AppCompatActivity implements UserAccFragment.OnFragmentInteractionListener, Bidding.OnFragmentInteractionListener{
     ViewPager viewPager;
     TabLayout tabLayout;
-
+    String value="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +27,13 @@ public class MainTabActivity extends AppCompatActivity implements UserAccFragmen
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Crop Production Viewer");
         setSupportActionBar(toolbar);
+        try {
+            value=getIntent().getExtras().getString("guest");
+        }
+        catch (Exception e){
+
+        }
+
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -34,9 +42,16 @@ public class MainTabActivity extends AppCompatActivity implements UserAccFragmen
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.addFragment(new CropProductionFragment(), "Crop Production");
-        viewPagerAdapter.addFragment(new Bidding(),"My Bidding");
-        viewPagerAdapter.addFragment(new UserAccFragment(), "User Account");
+        if(value.equals("guest")) {
+            viewPagerAdapter.addFragment(new CropProductionFragment(), "Crop Production");
+            viewPagerAdapter.addFragment(new UserAccFragment(), "User Account");
+        }
+        else {
+            viewPagerAdapter.addFragment(new CropProductionFragment(), "Crop Production");
+            viewPagerAdapter.addFragment(new Bidding(),"My Bidding");
+            viewPagerAdapter.addFragment(new UserAccFragment(), "User Account");
+        }
+
         viewPager.setAdapter(viewPagerAdapter);
     }
 

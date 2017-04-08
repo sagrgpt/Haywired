@@ -1,6 +1,7 @@
 package com.complaints.jd.h2h;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -35,21 +36,98 @@ public class CropProductionFragment extends Fragment implements SwipeRefreshLayo
         // Inflate the layout for this fragment
         mycontext = container.getContext();
         return inflater.inflate(R.layout.fragment_crop_production, container, false);
-
     }
 
     @Override
     public void onRefresh() {
+        cropList.clear();
+        arrayList.clear();
+        arrayList1.clear();
+        arrayList2.clear();
+        arrayList3.clear();
         getData();
     }
+    ArrayList<String> arrayList = new ArrayList<>();
+    ArrayList<String> arrayList1 = new ArrayList<>();
+    ArrayList<String> arrayList2 = new ArrayList<>();
+    ArrayList<String> arrayList3 = new ArrayList<>();
+    String center,quantity,croptype,msp;
     public void getData()
     {
-        Crop a = new Crop("aaa","sasa","sasa","asdsa");
-        cropList.add(a);
+        //loading = ProgressDialog.show(mycontext,"Please wait...","Fetching...",false,false);
+
+        String url = "http://kmzenon.pe.hu/app/production.php";
+        // Toast.makeText(mycontext,"getData",Toast.LENGTH_LONG).show();
+        StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // loading.dismiss();
+                // Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
+                showJSON(response);
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //Toast.makeText(mycontext,error.getMessage().toString(),Toast.LENGTH_LONG).show();
+                    }
+                });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(mycontext);
+        requestQueue.add(stringRequest);
+    }
+    private void showJSON(String response) {
+        String pro = "";
+        String bar = "";
+        String pr = "";
+        String image = "";
+        String rat = "";
+        String id="";
+        // Toast.makeText(mycontext,response,Toast.LENGTH_SHORT).show();
+        try {
+            JSONArray contacts = new JSONArray(response);
+            for (int j=0;j<contacts.length();j++)
+            {
+                JSONObject c = contacts.getJSONObject(j);
+                pro = c.getString("district");
+                arrayList.add(pro);
+                bar = c.getString("msp");
+                arrayList1.add(bar);
+                image=c.getString("crop");
+                arrayList2.add(image);
+                pr=c.getString("quantity");
+                arrayList3.add(pr);
+
+            }
+            prepare();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    /**
+     * Initializing collapsing toolbar
+     * Will show and hide the toolbar title on scroll
+     */
+
+
+    /**
+     * Adding few albums for testing
+     */
+    private void prepare() {
+        for (int i = 0; i < arrayList.size(); i++) {
+
+            String product = arrayList.get(i);
+            String bar = arrayList1.get(i);
+            String imgsrc = arrayList2.get(i);
+            String price = arrayList3.get(i);
+            Crop a = new Crop(product, bar,"http://kmzenon.pe.hu/app/wheat.jpg",price);
+            cropList.add(a);
+
+        }
+
         adapter.notifyDataSetChanged();
         swipeRefreshLayout.setRefreshing(false);
     }
-
 
     CropAdapter adapter;
 

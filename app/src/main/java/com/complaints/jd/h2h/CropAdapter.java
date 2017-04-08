@@ -69,6 +69,7 @@ public class CropAdapter extends RecyclerView.Adapter<CropAdapter.MyViewHolder> 
         holder.count.setText(album.getPrice());
         Glide.with(mContext).load("http://kmzenon.pe.hu/app/wheat.jpg").into(holder.thumbnail);
         holder.item.setText("");
+
         //holder.item.setVisibility(View.INVISIBLE);
 
     }
