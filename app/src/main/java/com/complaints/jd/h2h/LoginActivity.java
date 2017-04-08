@@ -1,9 +1,5 @@
 package com.complaints.jd.h2h;
-<<<<<<< Updated upstream
-
 import android.content.Context;
-=======
->>>>>>> Stashed changes
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;

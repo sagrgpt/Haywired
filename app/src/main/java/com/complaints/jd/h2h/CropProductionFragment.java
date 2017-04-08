@@ -62,11 +62,9 @@ String company;
     ArrayList<String> arrayList1 = new ArrayList<>();
     ArrayList<String> arrayList2 = new ArrayList<>();
     ArrayList<String> arrayList3 = new ArrayList<>();
-<<<<<<< Updated upstream
     ArrayList<String> arrayList4 = new ArrayList<>();
     String center,quantity,croptype,msp,centerid;
-=======
->>>>>>> Stashed changes
+
     public void getData()
     {
         //loading = ProgressDialog.show(mycontext,"Please wait...","Fetching...",false,false);
