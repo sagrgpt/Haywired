@@ -1,12 +1,19 @@
 package com.complaints.jd.h2h;
 
 import android.content.Context;
+<<<<<<< Updated upstream
+=======
+import android.content.DialogInterface;
+import android.content.Intent;
+>>>>>>> Stashed changes
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +37,12 @@ public class MakeBiddingActivity extends AppCompatActivity implements SwipeRefre
     ArrayList<String> arrayList1 = new ArrayList<>();
     CenterBiddingAdapter mAdapter;
     SwipeRefreshLayout swipeRefreshLayout;
+<<<<<<< Updated upstream
     FloatingActionButton actionButton;
+=======
+    FloatingActionButton done;
+
+>>>>>>> Stashed changes
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +66,35 @@ public class MakeBiddingActivity extends AppCompatActivity implements SwipeRefre
        swipeRefreshLayout.setOnRefreshListener(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(mAdapter);
+
+        //Moving to next activity on clicking of the done button
+        done = (FloatingActionButton) findViewById(R.id.fab);
+        done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                checking if the user entry is valid before moving to the next activity.
+                //Alert dialog as confirmation to order placed
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MakeBiddingActivity.this);
+                builder.setView(R.layout.bid_view)
+                        .setPositiveButton("Make Bid", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                Toast.makeText(getApplicationContext(),"Your bid has been placed!!",Toast.LENGTH_SHORT).show();
+//                                startActivity(new Intent(OrderDetails.this,ProductActivity.class));
+
+                            }
+                        })
+                         .setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
+                             @Override
+                             public void onClick(DialogInterface dialog, int which) {
+                                 dialog.dismiss();
+                             }
+                         });
+                builder.show();
+            }
+        });
 
     }
 
