@@ -38,7 +38,7 @@ public class CropAdapter extends RecyclerView.Adapter<CropAdapter.MyViewHolder> 
     private Context mContext;
     private List<Crop> albumList;
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, count,msp,centerkiitem;
+        public TextView title, count,msp,centerkiitem,comid;
         public ImageView thumbnail, overflow;
         CardView cardView;
         public MyViewHolder(View view) {
@@ -49,6 +49,7 @@ public class CropAdapter extends RecyclerView.Adapter<CropAdapter.MyViewHolder> 
             msp=(TextView)view.findViewById(R.id.msp);
             centerkiitem=(TextView)view.findViewById(R.id.centerid);
             cardView=(CardView)view.findViewById(R.id.card);
+            comid=(TextView)view.findViewById(R.id.comid);
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -56,6 +57,8 @@ public class CropAdapter extends RecyclerView.Adapter<CropAdapter.MyViewHolder> 
                     Intent intent=new Intent(context,MakeBiddingActivity.class);
                     intent.putExtra("msp",msp.getText().toString());
                     intent.putExtra("quan",count.getText().toString());
+                    intent.putExtra("com",comid.getText().toString());
+                    intent.putExtra("cid",centerkiitem.getText().toString());
                     context.startActivity(intent);
 
                 }
@@ -85,7 +88,7 @@ public class CropAdapter extends RecyclerView.Adapter<CropAdapter.MyViewHolder> 
         holder.count.setText(album.getPrice());
         Glide.with(mContext).load("http://kmzenon.pe.hu/app/wheat.jpg").into(holder.thumbnail);
         holder.msp.setText("₹"+album.getBarcode());
-
+        holder.comid.setText(album.getcompany());
         holder.centerkiitem.setText(album.getId());
         holder.centerkiitem.setVisibility(View.INVISIBLE);
 

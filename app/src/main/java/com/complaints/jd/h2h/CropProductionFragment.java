@@ -135,7 +135,7 @@ String company;
             String imgsrc = arrayList2.get(i);
             String price = arrayList3.get(i);
             String id= arrayList4.get(i);
-            Crop a = new Crop(product, bar,"http://kmzenon.pe.hu/app/wheat.jpg",price,id);
+            Crop a = new Crop(product, bar,"http://kmzenon.pe.hu/app/wheat.jpg",price,id,company);
             cropList.add(a);
 
         }

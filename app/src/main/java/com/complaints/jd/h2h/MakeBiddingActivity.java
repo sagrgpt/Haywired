@@ -1,11 +1,8 @@
 package com.complaints.jd.h2h;
 
 import android.content.Context;
-<<<<<<< Updated upstream
-=======
 import android.content.DialogInterface;
 import android.content.Intent;
->>>>>>> Stashed changes
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
@@ -13,10 +10,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -28,7 +30,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MakeBiddingActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
 
@@ -37,27 +41,24 @@ public class MakeBiddingActivity extends AppCompatActivity implements SwipeRefre
     ArrayList<String> arrayList1 = new ArrayList<>();
     CenterBiddingAdapter mAdapter;
     SwipeRefreshLayout swipeRefreshLayout;
-<<<<<<< Updated upstream
-    FloatingActionButton actionButton;
-=======
     FloatingActionButton done;
-
->>>>>>> Stashed changes
+String comid,quan1,st,cid;
+    EditText price,quant;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_bidding);
         setTitle("Center Information");
-        String st=getIntent().getExtras().getString("msp");
-        String quan1=getIntent().getExtras().getString("quan");
+        st=getIntent().getExtras().getString("msp");
+         quan1=getIntent().getExtras().getString("quan");
+         comid=getIntent().getExtras().getString("com");
+        cid=getIntent().getExtras().getString("cid");
         TextView msp=(TextView)findViewById(R.id.msp);
         TextView quan=(TextView)findViewById(R.id.production);
         msp.setText(st);
         quan.setText(quan1);
         //Toast.makeText(getApplicationContext(),st,Toast.LENGTH_SHORT).show();
         //Initiating recycler view
-        actionButton=(FloatingActionButton)findViewById(R.id.fab);
-        actionButton.set
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycleViewContainer);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         getData(getApplicationContext());
@@ -75,14 +76,46 @@ public class MakeBiddingActivity extends AppCompatActivity implements SwipeRefre
 //                checking if the user entry is valid before moving to the next activity.
                 //Alert dialog as confirmation to order placed
 
+                LayoutInflater li = LayoutInflater.from(getApplicationContext());
+                final View promptView = li.inflate(R.layout.bid_view,null);
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(MakeBiddingActivity.this);
-                builder.setView(R.layout.bid_view)
+                builder.setView(promptView)
+
                         .setPositiveButton("Make Bid", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                price=(EditText)promptView.findViewById(R.id.bid_price);
+                                quant=(EditText)promptView.findViewById(R.id.bid_quantity);
+                                Toast.makeText(getApplicationContext(),price.getText().toString(),Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(),comid,Toast.LENGTH_SHORT).show();
+                                StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://kmzenon.pe.hu/app/postbid.php", new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String response) {
+                                        Toast.makeText(getApplicationContext(),cid,Toast.LENGTH_SHORT).show();
+                                    }
+                                }, new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        //   Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }) {
+                                    @Override
+                                    protected Map<String, String> getParams() throws AuthFailureError {
+                                        Map<String, String> params = new HashMap<String, String>();
+                                        params.put("comid",comid);
+                                        params.put("cid",cid);
+                                        params.put("crop","Wheat");
+                                        params.put("price",price.getText().toString());
+                                        params.put("quantity",quant.getText().toString());
+                                        return params;
+                                    }
+                                };
+                                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                                requestQueue.add(stringRequest);
+                                Toast.makeText(getApplicationContext(),"User Registered",Toast.LENGTH_SHORT).show();
+                                //startActivity(new Intent(getApplicationContext(),MainTabActivity.class));
 
-                                Toast.makeText(getApplicationContext(),"Your bid has been placed!!",Toast.LENGTH_SHORT).show();
-//                                startActivity(new Intent(OrderDetails.this,ProductActivity.class));
 
                             }
                         })
