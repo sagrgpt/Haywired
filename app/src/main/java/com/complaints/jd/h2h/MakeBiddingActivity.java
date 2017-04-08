@@ -1,6 +1,7 @@
 package com.complaints.jd.h2h;
 
 import android.content.Context;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,7 +30,7 @@ public class MakeBiddingActivity extends AppCompatActivity implements SwipeRefre
     ArrayList<String> arrayList1 = new ArrayList<>();
     CenterBiddingAdapter mAdapter;
     SwipeRefreshLayout swipeRefreshLayout;
-
+    FloatingActionButton actionButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +44,8 @@ public class MakeBiddingActivity extends AppCompatActivity implements SwipeRefre
         quan.setText(quan1);
         //Toast.makeText(getApplicationContext(),st,Toast.LENGTH_SHORT).show();
         //Initiating recycler view
+        actionButton=(FloatingActionButton)findViewById(R.id.fab);
+        actionButton.set
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycleViewContainer);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         getData(getApplicationContext());
