@@ -5,15 +5,12 @@
     android:layout_height="match_parent"
     tools:context="com.complaints.jd.h2h.LoginActivity">
 
-    <!--<android.support.v7.widget.Toolbar-->
-        <!--android:id="@+id/toolbar"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="?attr/actionBarSize"-->
-        <!--android:background="?attr/colorPrimary"-->
-        <!--android:clickable="true"-->
-        <!--app:layout_scrollFlags="scroll|enterAlways"-->
-        <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />-->
-
+   <ImageView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:src="@mipmap/ic_launcher_round"
+       android:layout_centerHorizontal="true"
+       android:layout_above="@id/username"/>
 
     <EditText
         android:gravity="center"

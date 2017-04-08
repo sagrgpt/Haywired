@@ -2,7 +2,10 @@ package com.complaints.jd.h2h;
 
 import android.content.Context;
 import android.content.DialogInterface;
+<<<<<<< Updated upstream
 import android.content.Intent;
+=======
+>>>>>>> Stashed changes
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
@@ -42,8 +45,12 @@ public class MakeBiddingActivity extends AppCompatActivity implements SwipeRefre
     CenterBiddingAdapter mAdapter;
     SwipeRefreshLayout swipeRefreshLayout;
     FloatingActionButton done;
+<<<<<<< Updated upstream
 String comid,quan1,st,cid;
     EditText price,quant;
+=======
+
+>>>>>>> Stashed changes
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +65,11 @@ String comid,quan1,st,cid;
         msp.setText(st);
         quan.setText(quan1);
         //Toast.makeText(getApplicationContext(),st,Toast.LENGTH_SHORT).show();
+<<<<<<< Updated upstream
         //Initiating recycler view
+=======
+        //Initiating recycler view=
+>>>>>>> Stashed changes
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycleViewContainer);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         getData(getApplicationContext());
