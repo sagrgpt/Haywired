@@ -37,15 +37,15 @@ public class CropAdapter extends RecyclerView.Adapter<CropAdapter.MyViewHolder> 
     private Context mContext;
     private List<Crop> albumList;
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, count,item,centerkiitem;
+        public TextView title, count,msp,centerkiitem;
         public ImageView thumbnail, overflow;
         CardView cardView;
         public MyViewHolder(View view) {
             super(view);
-            title = (TextView) view.findViewById(R.id.croptype);
+            title = (TextView) view.findViewById(R.id.center1);
             count = (TextView) view.findViewById(R.id.quantity);
             thumbnail = (ImageView) view.findViewById(R.id.cropimage);
-            item=(TextView)view.findViewById(R.id.center1);
+            msp=(TextView)view.findViewById(R.id.msp);
             centerkiitem=(TextView)view.findViewById(R.id.centerid);
             cardView=(CardView)view.findViewById(R.id.card);
             cardView.setOnClickListener(new View.OnClickListener() {
@@ -76,10 +76,10 @@ public class CropAdapter extends RecyclerView.Adapter<CropAdapter.MyViewHolder> 
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         album = albumList.get(position);
 
-        holder.title.setText("District:"+"       "+album.getproduct());
-        holder.count.setText("Quantity:"+"       "+album.getPrice());
+        holder.title.setText(album.getproduct());
+        holder.count.setText(album.getPrice());
         Glide.with(mContext).load("http://kmzenon.pe.hu/app/wheat.jpg").into(holder.thumbnail);
-        holder.item.setText("MSP:"+"       "+"₹"+album.getBarcode());
+        holder.msp.setText("₹"+album.getBarcode());
 
         holder.centerkiitem.setText(album.getId());
         holder.centerkiitem.setVisibility(View.INVISIBLE);
