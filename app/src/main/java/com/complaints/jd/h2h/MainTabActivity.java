@@ -14,8 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,12 +29,13 @@ public class MainTabActivity extends AppCompatActivity implements  Bidding.OnFra
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Crop Production Viewer");
         setSupportActionBar(toolbar);
+
+        //Getting preferences
         SharedPreferences sharedPreferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
         comid = sharedPreferences.getString("COMID",null);
         value = sharedPreferences.getBoolean("ISGUEST",false);
-       // Toast.makeText(getApplicationContext(),comid,Toast.LENGTH_SHORT).show();
-       // Toast.makeText(getApplicationContext(),value.toString(),Toast.LENGTH_SHORT).show();
 
+        //Getting tabs for the tab layout
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
         tabLayout = (TabLayout) findViewById(R.id.tabs);

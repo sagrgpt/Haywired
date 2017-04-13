@@ -18,7 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -85,7 +84,7 @@ public class CropAdapter extends RecyclerView.Adapter<CropAdapter.MyViewHolder> 
         album = albumList.get(position);
 
         holder.title.setText(album.getproduct());
-        holder.count.setText(album.getPrice());
+        holder.count.setText(album.getPrice()+"Qunital");
         Glide.with(mContext).load("http://kmzenon.pe.hu/app/wheat.jpg").into(holder.thumbnail);
         holder.msp.setText("₹"+album.getBarcode());
         holder.comid.setText(album.getcompany());

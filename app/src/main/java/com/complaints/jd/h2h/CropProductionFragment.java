@@ -10,8 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -26,11 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CropProductionFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-        private static String COMID;
+
     RecyclerView recyclerView;
     SwipeRefreshLayout swipeRefreshLayout;
     List<Crop> cropList=new ArrayList<>();
@@ -44,7 +38,6 @@ String company;
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mycontext = container.getContext();
-        Toast.makeText(mycontext,company,Toast.LENGTH_SHORT).show();
         return inflater.inflate(R.layout.fragment_crop_production, container, false);
     }
 
@@ -69,19 +62,16 @@ String company;
         //loading = ProgressDialog.show(mycontext,"Please wait...","Fetching...",false,false);
 
         String url = "http://kmzenon.pe.hu/app/production.php";
-        // Toast.makeText(mycontext,"getData",Toast.LENGTH_LONG).show();
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 // loading.dismiss();
-                // Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
                 showJSON(response);
             }
         },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        //Toast.makeText(mycontext,error.getMessage().toString(),Toast.LENGTH_LONG).show();
                     }
                 });
 
@@ -95,7 +85,6 @@ String company;
         String image = "";
         String rat = "";
         String id = "";
-        // Toast.makeText(mycontext,response,Toast.LENGTH_SHORT).show();
         try {
             JSONArray contacts = new JSONArray(response);
             for (int j = 0; j < contacts.length(); j++) {

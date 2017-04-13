@@ -34,7 +34,7 @@ public class CenterBiddingAdapter extends RecyclerView.Adapter<CenterBiddingAdap
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         currentData = data.get(position);
-        holder.quantity.setText(currentData.getQuantity());
+        holder.quantity.setText(currentData.getPrice());
         holder.biddingPrice.setText(currentData.getQuantity());
     }
 

@@ -188,7 +188,8 @@ public class RegistrationActivity extends AppCompatActivity {
             RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
             requestQueue.add(stringRequest);
             Toast.makeText(getApplicationContext(),"User Registered",Toast.LENGTH_SHORT).show();
-            //startActivity(new Intent(getApplicationContext(),MainTabActivity.class));
+            startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+
         }
     }
 }

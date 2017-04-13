@@ -1,11 +1,9 @@
 package com.complaints.jd.h2h;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-<<<<<<< Updated upstream
-import android.content.Intent;
-=======
->>>>>>> Stashed changes
+import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
@@ -13,9 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,12 +43,8 @@ public class MakeBiddingActivity extends AppCompatActivity implements SwipeRefre
     CenterBiddingAdapter mAdapter;
     SwipeRefreshLayout swipeRefreshLayout;
     FloatingActionButton done;
-<<<<<<< Updated upstream
 String comid,quan1,st,cid;
     EditText price,quant;
-=======
-
->>>>>>> Stashed changes
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,12 +58,9 @@ String comid,quan1,st,cid;
         TextView quan=(TextView)findViewById(R.id.production);
         msp.setText(st);
         quan.setText(quan1);
-        //Toast.makeText(getApplicationContext(),st,Toast.LENGTH_SHORT).show();
-<<<<<<< Updated upstream
+
         //Initiating recycler view
-=======
         //Initiating recycler view=
->>>>>>> Stashed changes
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycleViewContainer);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         getData(getApplicationContext());
@@ -86,57 +77,53 @@ String comid,quan1,st,cid;
             public void onClick(View v) {
 //                checking if the user entry is valid before moving to the next activity.
                 //Alert dialog as confirmation to order placed
-
-                LayoutInflater li = LayoutInflater.from(getApplicationContext());
-                final View promptView = li.inflate(R.layout.bid_view,null);
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(MakeBiddingActivity.this);
-                builder.setView(promptView)
-
-                        .setPositiveButton("Make Bid", new DialogInterface.OnClickListener() {
+                final Dialog dialog = new Dialog(MakeBiddingActivity.this);
+                dialog.setContentView(R.layout.bid_view);
+                final EditText price = (EditText)dialog.findViewById(R.id.bid_price);
+                EditText quantity = (EditText)dialog.findViewById(R.id.bid_quantity);
+                Button onProceed = (Button) dialog.findViewById(R.id.proceed);
+                Button onCancel = (Button) dialog.findViewById(R.id.cancel);
+                onProceed.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+//                        Toast.makeText(MakeBiddingActivity.this,price.getText().toString(),Toast.LENGTH_SHORT).show();
+                        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://kmzenon.pe.hu/app/postbid.php", new Response.Listener<String>() {
                             @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                price=(EditText)promptView.findViewById(R.id.bid_price);
-                                quant=(EditText)promptView.findViewById(R.id.bid_quantity);
-                                Toast.makeText(getApplicationContext(),price.getText().toString(),Toast.LENGTH_SHORT).show();
-                                Toast.makeText(getApplicationContext(),comid,Toast.LENGTH_SHORT).show();
-                                StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://kmzenon.pe.hu/app/postbid.php", new Response.Listener<String>() {
-                                    @Override
-                                    public void onResponse(String response) {
-                                        Toast.makeText(getApplicationContext(),cid,Toast.LENGTH_SHORT).show();
-                                    }
-                                }, new Response.ErrorListener() {
-                                    @Override
-                                    public void onErrorResponse(VolleyError error) {
-                                        //   Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
-                                    }
-                                }) {
-                                    @Override
-                                    protected Map<String, String> getParams() throws AuthFailureError {
-                                        Map<String, String> params = new HashMap<String, String>();
-                                        params.put("comid",comid);
-                                        params.put("cid",cid);
-                                        params.put("crop","Wheat");
-                                        params.put("price",price.getText().toString());
-                                        params.put("quantity",quant.getText().toString());
-                                        return params;
-                                    }
-                                };
-                                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-                                requestQueue.add(stringRequest);
-                                Toast.makeText(getApplicationContext(),"User Registered",Toast.LENGTH_SHORT).show();
-                                //startActivity(new Intent(getApplicationContext(),MainTabActivity.class));
-
-
+                            public void onResponse(String response) {
+//                                        Toast.makeText(getApplicationContext(),cid,Toast.LENGTH_SHORT).show();
                             }
-                        })
-                         .setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
-                             @Override
-                             public void onClick(DialogInterface dialog, int which) {
-                                 dialog.dismiss();
-                             }
-                         });
-                builder.show();
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                //   Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
+                            }
+                        }) {
+                            @Override
+                            protected Map<String, String> getParams() throws AuthFailureError {
+                                Map<String, String> params = new HashMap<String, String>();
+                                params.put("comid",comid);
+                                params.put("cid",cid);
+                                params.put("crop","Wheat");
+                                params.put("price",price.getText().toString());
+                                params.put("quantity",quant.getText().toString());
+                                return params;
+                            }
+                        };
+                        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                        requestQueue.add(stringRequest);
+                        dialog.dismiss();
+//                                Toast.makeText(getApplicationContext(),"User Registered",Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                onCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
             }
         });
 
@@ -151,7 +138,7 @@ String comid,quan1,st,cid;
     }
 
     public void getData(Context context){
-        String url = "http://kmzenon.pe.hu/app/centerbidding.php?cid="+"1";
+        String url = "http://kmzenon.pe.hu/app/centerbidding.php?cid="+cid;
         // Toast.makeText(mycontext,"getData",Toast.LENGTH_LONG).show();
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
             @Override
